@@ -1,0 +1,300 @@
+@extends('layouts.app')
+
+@section('content')
+
+
+<!-- Modal add Product start -->
+<div class="modal signUpContent fade" id="addProduct" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h3 class="modal-title-site text-center"> Add New Product </h3>
+            </div>
+            <div class="modal-body">
+               <form method="POST" action="#" id="form" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" name=name>
+
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="exampleTextarea">Description</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3" name=description></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <input type="number" class="form-control" name=price >
+          </div>
+          <div class="">
+              <label>
+                  <input type="checkbox" name=isOnline>Online
+              </label>
+          </div>
+
+          <div class="form-group">
+            <label for="InputFile">Image</label>
+            <input type="file" id="InputFile" name="photo">
+            <p class="help-block">Please Upload Your image Here.</p>
+        </div>
+
+        {{-- <input type="file" name="photo"> --}}
+        <input type="submit" value="Add" id="add" class="btn btn-primary">
+    </form>
+
+
+</div>
+
+</div>
+<!-- /.modal-content -->
+
+</div>
+<!-- /.modal-dialog -->
+
+</div>
+<!-- Fixed navbar start -->
+<!-- Modal add Product start -->
+<div class="modal signUpContent fade" id="editProduct" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h3 class="modal-title-site text-center"> Edit Product Name </h3>
+            </div>
+            <div class="modal-body">
+               <form method="POST" action="" id="form" enctype="multipart/form-data">
+               <input type="hidden" name="id" id="id">
+                {{ csrf_field() }}
+                <div class="form-group">
+
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" name="name" id="name">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <input type="number" class="form-control" name="price" id="price">
+          </div>
+          <div class="">
+              <label>
+                  <input type="checkbox" name="isOnline" id="isOnline">Online
+              </label>
+          </div>
+
+          <div class="form-group">
+            <label for="InputFile">Image</label>
+            <input type="file" id="InputFile" name="photo" id="image">
+            <p class="help-block">Please Upload Your image Here.</p>
+        </div>
+
+        {{-- <input type="file" name="photo"> --}}
+        <input type="submit" value="Add" id="add" class="btn btn-primary">
+        </form>
+
+
+</div>
+
+</div>
+<!-- /.modal-content -->
+
+</div>
+<!-- /.modal-dialog -->
+
+</div>
+<!-- Fixed navbar start -->
+<!-- /.Fixed navbar  -->
+<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="w100 productFilter clearfix">
+                <p class="pull-left"> Showing <strong>12</strong> products </p>
+
+                <div class="pull-right ">
+                    <div class="change-view pull-right">
+                        <a href="#" title="Grid" class="grid-view"> <i class="fa fa-th-large"></i> </a>
+                        <a href="#" title="List" class="list-view "><i class="fa fa-th-list"></i></a></div>
+                    </div>
+                </div>
+                <!--/.productFilter-->
+
+                <div class="row  categoryProduct xsResponse clearfix">
+                    <div class="col-xs-12">
+                        <a class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                        href="#addProduct">
+                        <span class="add2cart"><i class="fa fa-plus-square"> </i>Add New Product </span>
+                    </a>
+                </div>
+                @foreach($items as $item)
+                <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                    <div class="product">
+                        <a data-placement="left"
+                        class="add-fav tooltipHere" data-target="#product-details-modal" data-toggle="modal">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <div class="image">
+                        <a href="#"><img class="img-responsive" alt="img"
+                         src="{{ $item->imagePath }}"></a>
+                     </div>
+                     <div class="description">
+                        <h4><a href="#">{{ $item->name }}</a></h4>
+
+                        <div class="grid-description">
+                            {{ $item->description }} </p>
+                        </div>
+                        <div class="list-description">
+
+                            <p> {{ $item->description }} </p>
+                            </div>
+
+                            <div class="price">
+                            price:
+                            <span>{{ $item->price }}</span>
+                            </div>
+                             <div class="price">
+                             Bids :
+                             <span>{{ $item->numberOfBids}}
+                             </span></div>
+                             <div class="price">
+                             Highest Price <span>{{ $item->highestPrice     }}</span></div>
+                            <input type="button" value="Delete" id="delete" class="btn btn-primary">
+                            <button type="button" id="edit" class="btn btn-info btn-lg" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                            href="#editProduct"> Edit</button>
+                        </div>
+                    </div>
+                </div>
+        @endforeach
+
+            </div>
+            <!--/.categoryProduct || product content end-->
+
+            <div class="">
+                <div class="pagination pull-left no-margin-top">
+                    <ul class="pagination no-margin-top">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+                <div class="pull-right pull-right  col-sm-4 col-xs-12 no-padding text-right text-left-xs">
+                    <p>Showing 1–450 of 12 results</p>
+                </div>
+            </div>
+        </div>
+        <!--/.categoryFooter-->
+    </div>
+    <!--/right column end-->
+</div>
+<!-- /.row  -->
+<!-- /main container -->
+
+<!-- Product Details Modal  -->
+
+@endsection
+
+@section("scripts")
+<script>
+    $(function(){
+       $("#form").on("submit", function(event){
+           event.preventDefault();
+               // console.log('Done');
+               $.ajax({
+                url:"additem",
+                type: "POST",
+                //  data: $(this).serialize(),
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                   $.each(response, function(index, element) {
+                     console.log(element);
+                 });
+               }
+           });
+           });
+   });
+
+
+
+//add and delete
+
+$(function(){
+   $("#edit").on("click", function(event){
+       event.preventDefault()
+       $.ajax({
+        url:"getItem",
+        type: "GET",
+
+        success: function(response) {
+           console.log(response);
+                   //hwa rage3 json
+                   var item = response.item;
+
+                   $("#name").val(item.name);
+                   $("#description").val(item.description);
+                   $("#price").val(item.price);
+                   $("#image").val(item.imagePath);
+                   $("#id").val(item.id);
+                   if(item.IsOnline==1)
+                   {
+                    $("#isOnline").attr("checked", 'checked');
+                }
+
+
+                $("#editProduct").modal("show");
+
+            }
+        });
+   });
+});
+
+$(function(){
+   $("#editProduct").on("submit", 'form#form', function(event){
+       event.preventDefault();
+       $.ajax({
+        url:"updateItem",
+        type: "POST",
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        success: function(response) {
+           console.log(response);
+
+       }
+   });
+   });
+});
+
+// delete
+
+
+$(function(){
+ $("#delete").on("click", function(event){
+     event.preventDefault()
+     $.ajax({
+        url:"deleteItem/{id}",
+        type: "GET",
+
+        success: function(response) {
+           console.log("Deleted Successfully")
+
+       }
+   });
+ });
+});
+
+
+</script>
+@endsection
